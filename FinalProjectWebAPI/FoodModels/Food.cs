@@ -3,11 +3,13 @@ using System.Reflection.Emit;
 
 namespace FinalProjectWebAPI.Models
 {
-    public class ToDo
+    public class Food
     {
         public int Id { get; set; }
         public string? Name { get; set; }
-        public DateTime DueDate { get; set; }
+        public string? Group { get; set; }
+        public double Price { get; set; }
+        public int Calories { get; set; }
     }
 }
 
