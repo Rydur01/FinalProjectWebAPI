@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckl);
 builder.Services.AddDbContext<HobbiesContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Hobbies")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("HobbiesContext")));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
