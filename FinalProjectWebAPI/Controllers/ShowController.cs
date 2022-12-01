@@ -131,6 +131,7 @@ namespace FinalProjectWebAPI.Controllers
                 show.ShowsName = personToEdit.ShowsName;
                 show.Person = personToEdit.Person;
                 show.Seasons = personToEdit.Seasons;
+                show.WhereToWatch = personToEdit.WhereToWatch;
                 _context.Shows?.Update(show);
                 var result = _context.SaveChanges();
                 if (result >= 1)

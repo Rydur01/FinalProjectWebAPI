@@ -8,6 +8,8 @@
 
         public string Person { get; set; }
 
+        public string WhereToWatch{get;set;}
+
         public int Seasons { get; set; }
     }
 }
