@@ -66,12 +66,12 @@ namespace FinalProjectWebAPI.Controllers
         {
             try
             {
-                var person = _context.Shows?.Find(ID);
-                if (person == null)
+                var show = _context.Shows?.Find(ID);
+                if (show == null)
                 {
                     return NotFound($"Show with id {ID} was not found");
                 }
-                _context.Shows?.Remove(person);
+                _context.Shows?.Remove(show);
                 var result = _context.SaveChanges();
                 if (result >= 1)
                 {
@@ -117,21 +117,21 @@ namespace FinalProjectWebAPI.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        public IActionResult Put(Show personToEdit)
+        public IActionResult Put(Show showToEdit)
         {
-            if (personToEdit.ShowID < 1)
+            if (showToEdit.ShowID < 1)
             {
                 return BadRequest("Please provide a valid id");
             }
             try
             {
-                var show = _context.Shows?.Find(personToEdit.ShowID);
+                var show = _context.Shows?.Find(showToEdit.ShowID);
                 if (show == null)
                     return NotFound("The Show was not found");
-                show.ShowsName = personToEdit.ShowsName;
-                show.Person = personToEdit.Person;
-                show.Seasons = personToEdit.Seasons;
-                show.WhereToWatch = personToEdit.WhereToWatch;
+                show.ShowsName = showToEdit.ShowsName;
+                show.Person = showToEdit.Person;
+                show.Seasons = showToEdit.Seasons;
+                show.WhereToWatch = showToEdit.WhereToWatch;
                 _context.Shows?.Update(show);
                 var result = _context.SaveChanges();
                 if (result >= 1)
