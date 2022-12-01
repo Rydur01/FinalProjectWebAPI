@@ -1,61 +1,63 @@
-using FinalProjectWebAPI.Models;
+﻿using FinalProjectWebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalProjectWebAPI.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class FoodController : ControllerBase
-    {
-
-        private readonly ILogger<FoodController> _logger;
-        private readonly FoodContext _context;
-
-        public FoodController(ILogger<FoodController> logger, FoodContext context)
+    
+        [ApiController]
+        [Route("[controller]")]
+        public class HobbiesController : ControllerBase
         {
-            _logger = logger;
-            _context = context;
-        }
 
-        [HttpGet]
-        [Route("ById")]
-        [ProducesResponseType(typeof(Food), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        public IActionResult GetById(int id)
-        {
-            try
+            private readonly ILogger<HobbiesController> _logger;
+            private readonly FoodContext _context;
+
+            public HobbiesController(ILogger<HobbiesController> logger, FoodContext context)
             {
-                var food = _context.Foods?.Find(id);
-                if (food == null)
-                {
-                    return NotFound("The requested resource was not found");
-                }
-                if (id == null || id == 0)
-                {
-                    return Ok(_context.Foods?.Take(5));
-                }
-                return Ok(food);
-            }
-            catch (Exception e)
-            {
-                return Problem(e.Message);
+                _logger = logger;
+                _context = context;
             }
 
-        }
+            [HttpGet]
+            [Route("ById")]
+            [ProducesResponseType(typeof(Hobbies), StatusCodes.Status200OK)]
+            [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+            [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+
+            public IActionResult GetById(int id)
+            {
+                try
+                {
+                    var hobbies = _context.Hobbies?.Find(id);
+                    if (hobbies == null)
+                    {
+                        return NotFound("The requested resource was not found");
+                    }
+                    if (id == null || id == 0)
+                    {
+                        return Ok(_context.Hobbies?.Take(5));
+                    }
+                    return Ok(hobbies);
+                }
+                catch (Exception e)
+                {
+                    return Problem(e.Message);
+                }
+
+            }
 
         [HttpGet]
         [Route("All")]
-        [ProducesResponseType(typeof(List<Food>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<Hobbies>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         public IActionResult GetAll()
         {
             try
             {
-                if (_context.Foods == null || !_context.Foods.Any())
-                    return NotFound("No Foods found in the database");
-                return Ok(_context.Foods?.ToList());
+                if (_context.Hobbies == null || !_context.Hobbies.Any())
+                    return NotFound("No Hobbies found in the database");
+                return Ok(_context.Hobbies?.ToList());
             }
             catch (Exception e)
             {
@@ -72,13 +74,13 @@ namespace FinalProjectWebAPI.Controllers
         {
             try
             {
-                var food = _context.Foods?.Find(id);
-                if (food == null)
+                var hobby = _context.Hobbies?.Find(id);
+                if (hobby == null)
                 {
-                    return NotFound($"Food with id {id} was not found");
+                    return NotFound($"Hobby with id {id} was not found");
                 }
 
-                _context.Foods?.Remove(food);
+                _context.Hobbies?.Remove(hobby);
                 var result = _context.SaveChanges();
                 if (result >= 1)
                 {
@@ -97,23 +99,20 @@ namespace FinalProjectWebAPI.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        public IActionResult Add(Food foodToAdd)
+        public IActionResult Add(Hobbies hobbyToAdd)
         {
-            //what if they provide an id?
-            if (foodToAdd.FoodId != 0)
+            if (hobbyToAdd.Id != 0)
             {
                 return BadRequest("Id was provided but not needed");
             }
-            //1.) Fix it and don't tell and just do it
-            //2.) Tell them to fix it
             try
             {
-                //todoToAdd.Id = 0;
-                _context.Foods?.Add(foodToAdd);
+                //HobbyToAdd.Id = 0;
+                _context.Hobbies?.Add(hobbyToAdd);
                 var result = _context.SaveChanges();
                 if (result >= 1)
                 {
-                    return Ok($"Food {foodToAdd.Name} added successfully");
+                    return Ok($"Hobby {hobbyToAdd.Name} added successfully");
                 }
                 return Problem("Add was not successful. Please try again");
             }
@@ -128,28 +127,29 @@ namespace FinalProjectWebAPI.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        public IActionResult Put(Food foodToEdit)
+        public IActionResult Put(Hobbies hobbyToEdit)
         {
-            if (foodToEdit.FoodId < 1)
+            if (hobbyToEdit.Id < 1)
             {
                 return BadRequest("Please provide a valid id");
             }
 
             try
             {
-                var food = _context.Foods?.Find(foodToEdit.FoodId);
-                if (food == null)
-                    return NotFound("The Food was not found");
+                var hobby = _context.Hobbies?.Find(hobbyToEdit.Id);
+                if (hobby == null)
+                    return NotFound("The hobby was not found");
 
-                food.Name = foodToEdit.Name;
-                food.Group = foodToEdit.Group;
-                food.Price = foodToEdit.Price;
-                food.Calories = foodToEdit.Calories;
-                _context.Foods?.Update(food);
+                
+                hobby.Name = hobbyToEdit.Name;
+                hobby.Reason = hobbyToEdit.Reason;
+                hobby.Days = hobbyToEdit.Days;
+                hobby.Hobby = hobbyToEdit.Hobby;
+                _context.Hobbies?.Update(hobby);
                 var result = _context.SaveChanges();
                 if (result >= 1)
                 {
-                    return Ok("Food edited successfully");
+                    return Ok("Hobby edited successfully");
                 }
                 return Problem("Edit was not successful. Please try again");
             }
@@ -159,4 +159,5 @@ namespace FinalProjectWebAPI.Controllers
             }
         }
     }
-}
+    }
+
