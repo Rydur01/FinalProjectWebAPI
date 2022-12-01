@@ -9,11 +9,17 @@ builder.Services.AddDbContext<FoodContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("FoodContext")));
 
 builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckl);
+builder.Services.AddDbContext<HobbiesContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("HobbiesContext")));
+
+builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerDocument();
 
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

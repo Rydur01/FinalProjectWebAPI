@@ -17,7 +17,6 @@ namespace FinalProjectWebAPI.Models
             modelBuilder.Entity<Show>().HasData(
                 new Show { ShowID = 1, ShowsName = "South Park", Person = "Grant Kollar", Seasons = 23, WhereToWatch = "YouTube TV" },
                 new Show { ShowID = 2, ShowsName = "The Boys", Person = "Jacob", Seasons = 3, WhereToWatch = "Amazon" });
-           );
         }
         
 
