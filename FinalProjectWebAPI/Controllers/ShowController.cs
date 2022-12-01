@@ -91,16 +91,13 @@ namespace FinalProjectWebAPI.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         public IActionResult Add(Show showToAdd)
         {
-            //what if they provide an id?
             if (showToAdd.ID != 0)
             {
                 return BadRequest("ID was provided but not needed");
             }
-            //1.) Fix it and don't tell and just do it
-            //2.) Tell them to fix it
             try
             {
-                //personToAdd.Id = 0;
+                //ShowToAdd.Id = 0;
                 _context.Shows?.Add(showToAdd);
                 var result = _context.SaveChanges();
                 if (result >= 1)
