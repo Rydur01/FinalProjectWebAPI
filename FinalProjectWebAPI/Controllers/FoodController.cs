@@ -96,7 +96,7 @@ namespace FinalProjectWebAPI.Controllers
         public IActionResult Add(Food foodToAdd)
         {
             //what if they provide an id?
-            if (foodToAdd.Id != 0)
+            if (foodToAdd.FoodId != 0)
             {
                 return BadRequest("Id was provided but not needed");
             }
@@ -126,14 +126,14 @@ namespace FinalProjectWebAPI.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         public IActionResult Put(Food foodToEdit)
         {
-            if (foodToEdit.Id < 1)
+            if (foodToEdit.FoodId < 1)
             {
                 return BadRequest("Please provide a valid id");
             }
 
             try
             {
-                var food = _context.Foods?.Find(foodToEdit.Id);
+                var food = _context.Foods?.Find(foodToEdit.FoodId);
                 if (food == null)
                     return NotFound("The todo was not found");
 

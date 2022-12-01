@@ -1,6 +1,6 @@
-using FinalProjectWebAPI.Model;
+using FinalProjectWebAPI.FoodModels;
+using FinalProjectWebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace FinalProjectWebAPI.Controllers
 {
@@ -9,9 +9,9 @@ namespace FinalProjectWebAPI.Controllers
     public class ShowController : ControllerBase
     {
         private readonly ILogger<ShowController> _logger;
-        private readonly ShowsContext _context;
+        private readonly FoodContext _context;
 
-        public ShowController(ILogger<ShowController> logger, ShowsContext context)
+        public ShowController(ILogger<ShowController> logger, FoodContext context)
         {
             _logger = logger;
             _context = context;
@@ -91,7 +91,7 @@ namespace FinalProjectWebAPI.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         public IActionResult Add(Show showToAdd)
         {
-            if (showToAdd.ID != 0)
+            if (showToAdd.ShowID != 0)
             {
                 return BadRequest("ID was provided but not needed");
             }
@@ -119,13 +119,13 @@ namespace FinalProjectWebAPI.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         public IActionResult Put(Show personToEdit)
         {
-            if (personToEdit.ID < 1)
+            if (personToEdit.ShowID < 1)
             {
                 return BadRequest("Please provide a valid id");
             }
             try
             {
-                var show = _context.Shows?.Find(personToEdit.ID);
+                var show = _context.Shows?.Find(personToEdit.ShowID);
                 if (show == null)
                     return NotFound("The Show was not found");
                 show.ShowsName = personToEdit.ShowsName;
