@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
 builder.Services.AddDbContext<FoodContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("FoodContext")));
 
