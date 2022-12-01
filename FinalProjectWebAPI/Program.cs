@@ -1,12 +1,12 @@
-using FinalProjectWebAPI.Model;
+using FinalProjectWebAPI.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<ShowsContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("ShowsContext")));
+
+builder.Services.AddDbContext<FoodContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("FoodContext")));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
