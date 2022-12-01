@@ -109,7 +109,7 @@ namespace FinalProjectWebAPI.Controllers
                 var result = _context.SaveChanges();
                 if (result >= 1)
                 {
-                    return Ok($"Todo {foodToAdd.Name} added successfully");
+                    return Ok($"Food {foodToAdd.Name} added successfully");
                 }
                 return Problem("Add was not successful. Please try again");
             }
@@ -135,7 +135,7 @@ namespace FinalProjectWebAPI.Controllers
             {
                 var food = _context.Foods?.Find(foodToEdit.FoodId);
                 if (food == null)
-                    return NotFound("The todo was not found");
+                    return NotFound("The Food was not found");
 
                 food.Name = foodToEdit.Name;
                 food.Group = foodToEdit.Group;
