@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FinalProjectWebAPI.Migrations
 {
-    [DbContext(typeof(HobbiesContext))]
+    [DbContext(typeof(FoodContext))]
     [Migration("20221129180433_HobbiesInitial")]
     partial class HobbiesInitial
     {

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FinalProjectWebAPI.Migrations
 {
-    [DbContext(typeof(HobbiesContext))]
+    [DbContext(typeof(FoodContext))]
     partial class HobbiesContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

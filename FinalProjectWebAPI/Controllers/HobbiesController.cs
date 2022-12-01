@@ -10,9 +10,9 @@ namespace FinalProjectWebAPI.Controllers
         {
 
             private readonly ILogger<HobbiesController> _logger;
-            private readonly HobbiesContext _context;
+            private readonly FoodContext _context;
 
-            public HobbiesController(ILogger<HobbiesController> logger, HobbiesContext context)
+            public HobbiesController(ILogger<HobbiesController> logger, FoodContext context)
             {
                 _logger = logger;
                 _context = context;

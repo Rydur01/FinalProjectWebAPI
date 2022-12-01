@@ -10,7 +10,7 @@ builder.Services.AddDbContext<FoodContext>(options =>
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckl);
-builder.Services.AddDbContext<HobbiesContext>(options =>
+builder.Services.AddDbContext<FoodContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("HobbiesContext")));
 
 builder.Services.AddControllers();
