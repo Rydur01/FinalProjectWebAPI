@@ -33,6 +33,10 @@ namespace FinalProjectWebAPI.Controllers
                     {
                         return NotFound("The requested resource was not found");
                     }
+                    if (id == null || id == 0)
+                    {
+                        return Ok(_context.Hobbies?.Take(5));
+                    }
                     return Ok(hobbies);
                 }
                 catch (Exception e)

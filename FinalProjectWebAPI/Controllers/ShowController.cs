@@ -50,6 +50,10 @@ namespace FinalProjectWebAPI.Controllers
                 {
                     return NotFound("The requested resource was not found");
                 }
+                if (ID == null || ID == 0)
+                {
+                    return Ok(_context.Shows?.Take(5));
+                }
                 return Ok(show);
             }
             catch (Exception e)

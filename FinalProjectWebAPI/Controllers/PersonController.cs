@@ -1,5 +1,4 @@
-﻿using FinalProjectWebAPI.Data;
-using FinalProjectWebAPI.Models;
+﻿using FinalProjectWebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FinalProjectWebAPI.Controllers
@@ -9,9 +8,9 @@ namespace FinalProjectWebAPI.Controllers
     public class PersonController : ControllerBase
     {
         private readonly ILogger<PersonController> _logger;
-        private readonly PersonContext _context;
+        private readonly FoodContext _context;
 
-        public PersonController(ILogger<PersonController> logger, PersonContext context)
+        public PersonController(ILogger<PersonController> logger, FoodContext context)
         {
             _logger = logger;
             _context = context;
@@ -49,6 +48,10 @@ namespace FinalProjectWebAPI.Controllers
                 if (person == null)
                 {
                     return NotFound("The requested resource was not found");
+                }
+                if (ID == null || ID == 0)
+                {
+                    return Ok(_context.People?.Take(5));
                 }
                 return Ok(person);
             }
