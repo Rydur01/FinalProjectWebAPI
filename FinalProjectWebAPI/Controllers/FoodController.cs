@@ -26,12 +26,12 @@ namespace FinalProjectWebAPI.Controllers
         {
             try
             {
-                var todo = _context.Foods?.Find(id);
-                if (todo == null)
+                var food = _context.Foods?.Find(id);
+                if (food == null)
                 {
                     return NotFound("The requested resource was not found");
                 }
-                return Ok(todo);
+                return Ok(food);
             }
             catch (Exception e)
             {
@@ -50,7 +50,7 @@ namespace FinalProjectWebAPI.Controllers
             try
             {
                 if (_context.Foods == null || !_context.Foods.Any())
-                    return NotFound("No ToDos found in the database");
+                    return NotFound("No Foods found in the database");
                 return Ok(_context.Foods?.ToList());
             }
             catch (Exception e)
@@ -139,11 +139,13 @@ namespace FinalProjectWebAPI.Controllers
 
                 food.Name = foodToEdit.Name;
                 food.Group = foodToEdit.Group;
+                food.Price = foodToEdit.Price;
+                food.Calories = foodToEdit.Calories;
                 _context.Foods?.Update(food);
                 var result = _context.SaveChanges();
                 if (result >= 1)
                 {
-                    return Ok("Todo edited successfully");
+                    return Ok("Food edited successfully");
                 }
                 return Problem("Edit was not successful. Please try again");
             }
